@@ -3,8 +3,28 @@
 <title>Paillier cryptosystem JavaScript implementation</title>
 </head>
 <body>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript">
+
+$( document ).ready(function() {
+    console.log( "ready!" );
+
+    var keys, encA, encB, encAB, encABC;
+    var numBits = 1024;
+
+    	var startTime = new Date().getTime(),
+    		elapsed;
+    	keys = paillier.generateKeys(numBits);
+      console.log(keys);
+    	elapsed = new Date().getTime() - startTime;
+    	console.log(elapsed);
+    	console.log(keys.pub.n.toString());
+    	console.log(keys.sec.lambda.toString());			
+
+      console.log(paillier);
+
+});
+</script>
 <script type="text/javascript" src="js/jsbn/jsbn.js"></script>
 <script type="text/javascript" src="js/jsbn/jsbn2.js"></script>
 <script type="text/javascript" src="js/jsbn/prng4.js"></script>

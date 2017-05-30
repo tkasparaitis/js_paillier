@@ -1,5 +1,17 @@
+////////////////////////////////////////////////////////////////////////////////////
+//
+// paillier.js: a simple proof-of-concept Javascript implementation of the 
+// Paillier homomorphic encryption system.
+// 
+// Author: Maarten H. Everts (TNO)
+//
+// Dependencies: jsbn, from http://www-cs-students.stanford.edu/~tjw/jsbn/
+//  (you will need at least jsbn.js, jsbn2.js, prng4.js, and rng.js)
+// See the demo page on how to use it.
+//
+////////////////////////////////////////////////////////////////////////////////////
 
-//Mažiausias bendras kartotinis
+
 function lcm(a,b) {
   return a.multiply(b).divide(a.gcd(b));
 }
@@ -25,7 +37,6 @@ paillier = {
 	},
 	generateKeys: function(modulusbits) {
 		var p, q, n, keys = {}, rng = new SecureRandom();
-				
 		do {
 			do {
 				p = new BigInteger(modulusbits>>1,1,rng);
@@ -37,11 +48,6 @@ paillier = {
 
 			n = p.multiply(q);
 		} while(!(n.testBit(modulusbits - 1)) || (p.compareTo(q) == 0));
-		
-		console.log('p: ' + p.toString())
-		console.log('q: ' + q.toString())
-		console.log('n: ' + n.toString())
-		
 		keys.pub = new paillier.publicKey(modulusbits,n);
 		lambda = lcm(p.subtract(BigInteger.ONE),q.subtract(BigInteger.ONE));
 		keys.sec = new paillier.privateKey(lambda, keys.pub);
